@@ -1,0 +1,34 @@
+.menu {
+    padding:0 0 0 32px;/*四个内边距*/
+    margin:0;/*外边距*/
+    list-style:none;
+    height:40px;
+    background: #fff url("001.gif") repeat-x;
+    position: relative;
+    font-family: Arial,Verdana,sans-serif;
+    margin-top: 50px;
+}
+.menu li.top{
+    display:block;
+    float:left;
+    position: relative;
+}
+.menu li a.top_link{
+    display:block;
+    float:left;
+    height:40px;
+    line-height:33px;
+    color:#bbb;
+    text-decoration: aqua;
+    font-size:11px;
+    font-weight:bold;
+    padding:0 0 0 12px;
+    cursor:pointer;
+}
+.menu li a.top_link span{
+    float:left;
+    font-weight:bold;
+    display:block;
+    padding:0 24px 0 12px;
+    height:40px;
+}
