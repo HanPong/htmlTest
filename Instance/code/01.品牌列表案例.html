@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../lib/vue.min.js"></script>
+    <link rel="stylesheet" href="../lib/bootstrap.css">
+</head>
+<!--不使用Jquery-->
+<body>
+<div id="app">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">添加品牌</h3>
+        </div>
+        <div class="panel-body form-inline">
+            <label>
+                Id:
+                <input type="text" class="form-control" v-model="id">
+            </label>
+            <label>
+                Name:
+                <input type="text" class="form-control" v-model="name">
+            </label>
+            <label>
+                <input type="button" value="添加" class="btn btn-primary" @click="add">
+            </label>
+            <label>
+                搜索名称关键字：
+                <input type="text" class="form-control" v-model="keywords">
+            </label>
+
+
+
+        </div>
+    </div>
+
+
+    <table class="table table-bordered table-hover table-striped ">
+        <thead>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Ctime</th>
+        <th>Operation</th>
+        </thead>
+        <tbody>
+        <!--<tr v-for="item in list">-->
+        <tr v-for="item in search(keywords)">
+            <td>{{item.id}}</td>
+            <td v-text="item.name"></td><!--注意此处用法-->
+            <td>{{item.ctime}}</td>
+            <td>
+                <a href="" @click.prevent="del(item.id)">删除</a><!--阻止默认行为,item.id是参数，代表删除id的数据 -->
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    var vm = new Vue(
+        {
+            el:'#app',
+            data:{
+                id:'',
+                name:'',
+                keywords:'',//搜索的关键字
+                list:[
+                    {id:1,name:'奔驰',ctime:new Date()},
+                    {id:2,name:'宝马',ctime:new Date()}
+                ]
+            },
+            methods:{
+                add(){
+                    //获取到id和name，直接从data获取
+                    //组织出一个对象
+                    //把这个对象，调用数组的相关方法添加到data的list上
+                    //已经实现了双向绑定，会实时更新
+                    var car={id:this.id,name:this.name,ctime:new Date()}
+                    this.list.push(car)
+                    this.id=''
+                    this.name=''//空
+                },
+                del(id){//根据id删除数据
+                    //1.如何根据id找到删除这一项的索引
+                    //2.调用数组的splice方法
+                    this.list.some((item,i) => {
+                        if(item.id===id){
+                        this.list.splice(i,1)
+                        return true;}
+                    //在数组的some方法中，如果return true 就会终止它的后续循坏
+                })
+
+
+                },
+                search(keywords){
+                    var newList=[]
+                    this.list.forEach(item => {
+                        if(item.name.indexOf(keywords)!=-1){
+                            newList.push(item)
+                    }
+
+                    })
+                    return newList
+                }
+
+            },
+
+
+        }
+        )
+</script>
+
+</body>
+</html>
